@@ -199,6 +199,7 @@ vim.o.hlsearch = false
 
 -- Make line numbers default
 vim.wo.number = true
+vim.o.relativenumber = true
 
 -- Enable mouse mode
 vim.o.mouse = 'a'
@@ -218,8 +219,19 @@ vim.o.undofile = true
 vim.o.ignorecase = true
 vim.o.smartcase = true
 
--- Keep signcolumn on by default
-vim.wo.signcolumn = 'yes'
+vim.o.cursorline = true -- highlight the current cursor line
+
+-- turn on termguicolors for nightfly colorscheme to work
+-- (have to use iterm2 or any other true color terminal)
+vim.o.termguicolors = true
+
+vim.wo.signcolumn = 'yes' -- highlight the current cursor line
+
+-- split windows
+vim.o.splitright = true -- split vertical window to the right
+vim.o.splitbelow = true -- split horizontal window to the bottom
+
+vim.opt.iskeyword:append("-") -- consider string-string as whole word
 
 -- Decrease update time
 vim.o.updatetime = 250
@@ -233,6 +245,23 @@ vim.o.completeopt = 'menuone,noselect'
 vim.o.termguicolors = true
 
 -- [[ Basic Keymaps ]]
+vim.keymap.set("i", "jk", "<ESC>")
+
+-- delete single character without copying into register
+vim.keymap.set("n", "x", '"_x')
+
+-- window management
+vim.keymap.set("n", "<leader>sv", "<C-w>v") -- split window vertically
+vim.keymap.set("n", "<leader>sh", "<C-w>s") -- split window horizontally
+vim.keymap.set("n", "<leader>se", "<C-w>=") -- make split windows equal width & height
+vim.keymap.set("n", "<leader>sx", ":close<CR>") -- close current split window
+
+-- vim-maximizer
+vim.keymap.set("n", "<leader>sm", ":MaximizerToggle<CR>") -- toggle split window maximization
+
+-- nvim-tree
+vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>") -- toggle file explorer
+vim.keymap.set("n", "<leader>ff", ":NvimTreeFindFile<CR>") -- toggle file explorer
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
@@ -290,7 +319,7 @@ vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { de
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'go', 'php', 'lua', 'python', 'rust', 'tsx', 'typescript', 'help', 'vim' },
+  ensure_installed = { 'json', 'javascript', 'yaml', 'html', 'css', 'markdown', 'markdown_inline', 'bash', 'dockerfile', 'c', 'cpp', 'go', 'php', 'lua', 'python', 'rust', 'tsx', 'typescript', 'help', 'vim' },
 
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = false,
@@ -352,10 +381,55 @@ require('nvim-treesitter.configs').setup {
   },
 }
 
+-- recommended settings from nvim-tree documentation
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+-- change color for arrows in tree to light blue
+vim.cmd([[ highlight NvimTreeIndentMarker guifg=#3FC5FF ]])
+
+-- configure nvim-tree
+require('nvim-tree').setup({
+  -- disable window_picker for
+  -- explorer to work well with
+  -- window splits
+  actions = {
+    open_file = {
+      window_picker = {
+        enable = false,
+      },
+    },
+  },
+})
+
+-- open nvim-tree on setup
+
+local function open_nvim_tree(data)
+  -- buffer is a [No Name]
+  local no_name = data.file == "" and vim.bo[data.buf].buftype == ""
+
+  -- buffer is a directory
+  local directory = vim.fn.isdirectory(data.file) == 1
+
+  if not no_name and not directory then
+    return
+  end
+
+  -- change to the directory
+  if directory then
+    vim.cmd.cd(data.file)
+  end
+
+  -- open the tree
+  require("nvim-tree.api").tree.open()
+end
+
+vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })
+
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
+--vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float)
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
 
 -- LSP settings.
@@ -413,7 +487,10 @@ local servers = {
   -- gopls = {},
   -- pyright = {},
   -- rust_analyzer = {},
-  -- tsserver = {},
+  tsserver = {},
+  html = {},
+  emmet_ls = {},
+  cssls = {},
 
   lua_ls = {
     Lua = {
