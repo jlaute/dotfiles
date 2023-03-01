@@ -25,3 +25,7 @@ ln -sf "$DOTFILES/wsl2/tmux/tmux.conf" "$XDG_CONFIG_HOME/tmux/tmux.conf"
 if [ ! -d "$XDG_CONFIG_HOME/tmux/plugins/tpm" ]; then
     git clone git@github.com:tmux-plugins/tpm.git $XDG_CONFIG_HOME/tmux/plugins/tpm
 fi
+
+
+mkdir -p "$XDG_CONFIG_HOME/phpactor"
+ln -sf "$DOTFILES/wsl2/phpactor/phpactor.json" "$XDG_CONFIG_HOME/phpactor/phpactor.json"
