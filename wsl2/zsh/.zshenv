@@ -23,3 +23,5 @@ export DOTFILES="$HOME/dotfiles"
 
 export FZF_DEFAULT_COMMAND="rg --files --hidden --glob '!.git'"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
+if [ -e /home/joerg/.nix-profile/etc/profile.d/nix.sh ]; then . /home/joerg/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer

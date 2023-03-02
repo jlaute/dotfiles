@@ -147,7 +147,18 @@ require('lazy').setup({
   { 'numToStr/Comment.nvim', opts = {} },
 
   -- Fuzzy Finder (files, lsp, etc)
-  { 'nvim-telescope/telescope.nvim', version = '*', dependencies = { 'nvim-lua/plenary.nvim' } },
+  {
+    'nvim-telescope/telescope.nvim',
+    version = '*',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'BurntSushi/ripgrep',
+      'nvim-telescope/telescope-live-grep-args.nvim'
+    },
+    config = function ()
+      require('telescope').load_extension('live_grep_args')
+    end
+  },
 
   -- Fuzzy Finder Algorithm which requires local dependencies to be built.
   -- Only load if `make` is available. Make sure you have the system
@@ -292,6 +303,10 @@ require('telescope').setup {
         ['<C-d>'] = false,
       },
     },
+    file_ignore_patterns = {
+      "node_modules",
+      ".devenv/*"
+    }
   },
 }
 
@@ -312,7 +327,7 @@ end, { desc = '[/] Fuzzily search in current buffer' })
 vim.keymap.set('n', '<leader>sf', require('telescope.builtin').find_files, { desc = '[S]earch [F]iles' })
 vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
 vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
-vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
+vim.keymap.set('n', '<leader>sg', require('telescope').extensions.live_grep_args.live_grep_args, { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 
 -- [[ Configure Treesitter ]]
@@ -400,6 +415,9 @@ require('nvim-tree').setup({
       },
     },
   },
+  git = {
+    ignore = false
+  }
 })
 
 -- open nvim-tree on setup
