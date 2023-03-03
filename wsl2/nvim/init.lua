@@ -88,8 +88,15 @@ require('lazy').setup({
 
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
+        
+
+      'windwp/nvim-ts-autotag'
     },
   },
+  
+  -- formatting & linting
+  'jose-elias-alvarez/null-ls.nvim', -- configure formatters & linters
+  'jayp0521/mason-null-ls.nvim', -- bridges gap b/w mason & null-ls
 
   { -- Autocompletion
     'hrsh7th/nvim-cmp',
@@ -334,11 +341,12 @@ vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { de
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'json', 'javascript', 'yaml', 'html', 'css', 'markdown', 'markdown_inline', 'bash', 'dockerfile', 'c', 'cpp', 'go', 'php', 'lua', 'python', 'rust', 'tsx', 'typescript', 'help', 'vim' },
+  ensure_installed = { 'json', 'javascript', 'yaml', 'html', 'css', 'markdown', 'markdown_inline', 'bash', 'dockerfile', 'c', 'cpp', 'go', 'php', 'lua', 'python', 'rust', 'tsx', 'typescript', 'help', 'vim', 'twig', 'vue' },
 
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
-  auto_install = false,
+  auto_install = true,
 
+  autotag = { enable = true },
   highlight = { enable = true },
   indent = { enable = true, disable = { 'python' } },
   incremental_selection = {
@@ -595,5 +603,25 @@ cmp.setup {
   },
 }
 
+local null_ls = require 'null-ls'
+
+local formatting = null_ls.builtins.formatting -- to setup formatters
+local diagnostics = null_ls.builtins.diagnostics -- to setup linters
+
+-- to setup format on Save
+local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
+
+null_ls.setup({
+  sources = {
+    formatting.prettier,
+    diagnostics.dotenv_linter,
+    diagnostics.editorconfig_checker,
+    diagnostics.markdownlint,
+    diagnostics.php,
+    diagnostics.phpcs,
+    diagnostics.twigcs
+  }
+})
+--
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
