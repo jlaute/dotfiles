@@ -30,3 +30,32 @@ ftmuxp() {
     fi
 }
 
+jrnl() {
+    template="* JOURNAL - $year/$month/$day
+
+** Worklog
+
+** Notes
+    "
+    
+    if [[ ! $1 ]]; then
+        year=$(date '+%Y')
+        month=$(date '+%m')
+        day=$(date '+%d')
+    else
+        year=$(date --date="$1 day" '+%Y')
+        month=$(date --date="$1 day" '+%m')
+        day=$(date --date="$1 day" '+%d')
+    fi
+
+    if [[ ! -d "$HOME/journal/$year/$month" ]]; then
+        mkdir -p "$HOME/journal/$year/$month"
+    fi
+
+    if [[ ! -f "$HOME/journal/$year/$month/$day.md" ]]; then
+        touch "$HOME/journal/$year/$month/$day.md" 
+        echo $template >> "$HOME/journal/$year/$month/$day.md" 
+    fi
+
+    nvim "$HOME/journal/$year/$month/$day.md" 
+}
