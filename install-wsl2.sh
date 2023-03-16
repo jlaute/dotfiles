@@ -4,9 +4,10 @@ mkdir -p "$XDG_CONFIG_HOME/nvim"
 mkdir -p "$XDG_CONFIG_HOME/nvim/undo"
 ln -sf "$DOTFILES/wsl2/nvim/init.lua" "$XDG_CONFIG_HOME/nvim"
 rsync -a "$DOTFILES/wsl2/nvim/lua" "$XDG_CONFIG_HOME/nvim"
+rsync -a "$DOTFILES/wsl2/nvim/myplugins" "$XDG_CONFIG_HOME/nvim"
 
 # Install (or update) all the plugins
-nvim --noplugin +PackerInstall +qa
+# nvim --noplugin +PackerInstall +qa
 
 mkdir -p "$XDG_CONFIG_HOME/zsh"
 ln -sf "$DOTFILES/wsl2/zsh/.zshenv" "$HOME"

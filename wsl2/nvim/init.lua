@@ -65,6 +65,10 @@ vim.opt.rtp:prepend(lazypath)
 --    as they will be available in your neovim runtime.
 require('lazy').setup({
   -- NOTE: First, some plugins that don't require any configuration
+  dev = {
+    path = '~/.config/nvim/myplugins',
+    patterns = { 'jlaute' },
+  },
 
   -- Git related plugins
   'tpope/vim-fugitive',
@@ -206,13 +210,14 @@ require('lazy').setup({
   --
   --    An additional note is that if you only copied in the `init.lua`, you can just comment this line
   --    to get rid of the warning telling you that there are not plugins in `lua/custom/plugins/`.
+	-- {'jlaute/time-tracking.nvim', dev = true},
   { import = 'custom.plugins' },
 }, {})
-
+print(require('lazy').dev)
 -- [[ Setting options ]]
 -- See `:help vim.o`
 
-vim.o.noswapfile = true
+vim.o.swapfile = false
 
 -- Set highlight on search
 vim.o.hlsearch = false
@@ -516,7 +521,7 @@ end
 local servers = {
   -- clangd = {},
   -- gopls = {},
-  -- pyright = {},
+  pyright = {},
   -- rust_analyzer = {},
   tsserver = {},
   html = {},

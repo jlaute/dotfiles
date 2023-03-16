@@ -8,5 +8,7 @@ return {
 	-- vs-code like icons
 	'nvim-tree/nvim-web-devicons',
 
-	'windwp/nvim-autopairs'
+	'windwp/nvim-autopairs',
+
+	{'jlaute/time-tracking.nvim', dev = true}
 }
