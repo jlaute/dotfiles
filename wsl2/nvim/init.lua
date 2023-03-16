@@ -63,13 +63,11 @@ vim.opt.rtp:prepend(lazypath)
 --
 --  You can also configure plugins after the setup call,
 --    as they will be available in your neovim runtime.
+
+local myplugindir = os.getenv("DOTFILES") .. "/wsl2/nvim/myplugins" or "~/.config/nvim/myplugins"
+
 require('lazy').setup({
   -- NOTE: First, some plugins that don't require any configuration
-  dev = {
-    path = '~/.config/nvim/myplugins',
-    patterns = { 'jlaute' },
-  },
-
   -- Git related plugins
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
@@ -212,8 +210,13 @@ require('lazy').setup({
   --    to get rid of the warning telling you that there are not plugins in `lua/custom/plugins/`.
 	-- {'jlaute/time-tracking.nvim', dev = true},
   { import = 'custom.plugins' },
-}, {})
-print(require('lazy').dev)
+}, {
+  dev = {
+    path = myplugindir,
+    patterns = { 'jlaute' },
+  }
+})
+--
 -- [[ Setting options ]]
 -- See `:help vim.o`
 

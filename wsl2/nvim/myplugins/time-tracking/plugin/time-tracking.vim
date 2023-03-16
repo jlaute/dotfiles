@@ -1,9 +1,16 @@
+echo 'test 12'
+
 if exists('g:loaded_time_tracking')
     finish
 endif
 let g:loaded_time_tracking = 1
 
-echo 'LOADED'
+echo 'asdf'
+lua timetracking = require("time-tracking")
+
+echo 'LOADED1212'
+
+lua global_lua_function()
 
 " local curl = require('curl')
 "

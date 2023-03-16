@@ -10,5 +10,5 @@ return {
 
 	'windwp/nvim-autopairs',
 
-	{'jlaute/time-tracking.nvim', dev = true}
+	{'jlaute/time-tracking', dev = true}
 }

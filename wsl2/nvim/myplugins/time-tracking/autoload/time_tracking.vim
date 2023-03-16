@@ -53,7 +53,7 @@ def get_date_from_filename(filename):
     payload = {'start_date': date.isoformat(), 'end_date': datePlusOne.isoformat()}
     data = requests.get(
         'https://api.track.toggl.com/api/v9/me/time_entries',
-        auth=("joerg.lautenschlager@gmail.com", "NGyzr8SDk5"),
+        auth=("xxx", "xxx"),
         params=payload,
         headers={'content-type': 'application/json'}
     )
