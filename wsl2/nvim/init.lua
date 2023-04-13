@@ -192,6 +192,8 @@ require('lazy').setup({
     end,
   },
 
+  'nvim-treesitter/nvim-treesitter-context',
+
   'unblevable/quick-scope',
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
@@ -274,6 +276,7 @@ vim.o.termguicolors = true
 
 -- [[ Basic Keymaps ]]
 vim.keymap.set("i", "jk", "<ESC>")
+vim.keymap.set("i", "kj", "<ESC>")
 
 -- delete single character without copying into register
 vim.keymap.set("n", "x", '"_x')
@@ -413,6 +416,7 @@ require('nvim-treesitter.configs').setup {
     },
   },
 }
+
 
 -- recommended settings from nvim-tree documentation
 vim.g.loaded_netrw = 1
