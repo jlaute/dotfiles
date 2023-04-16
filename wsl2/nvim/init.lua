@@ -326,7 +326,8 @@ require('telescope').setup {
     file_ignore_patterns = {
       "node_modules",
       ".devenv/*"
-    }
+    },
+		path_display={"smart"}
   },
 }
 
