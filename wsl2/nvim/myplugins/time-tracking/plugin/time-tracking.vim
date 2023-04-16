@@ -5,8 +5,8 @@ if exists('g:loaded_time_tracking')
 endif
 let g:loaded_time_tracking = 1
 
-lua timetracking = require("time-tracking")
-
+" lua timetracking = require("time-tracking")
+"
 " lua global_lua_function()
 " lua timetracking.local_lua_function()
 
@@ -19,6 +19,7 @@ lua timetracking = require("time-tracking")
 " lua require("time_tracking").init()
 
 " Exposes the plugin's functions for use as commands in Vim.
-command! -nargs=0 Testi lua timetracking.local_lua_function()
-command! -nargs=0 TogglFetch call time_tracking#DefineWord()
-command! -nargs=0 FindDate call time_tracking#GetFilenme()
+" command! -nargs=0 Testi lua timetracking.local_lua_function()
+" command! -nargs=0 TogglFetch call time_tracking#DefineWord()
+" command! -nargs=0 FindDate call time_tracking#GetFilenme()
+command! -nargs=0 PFN call PrintMyFilename()
