@@ -50,19 +50,19 @@ def get_date_from_filename(filename):
     print('month: ' + regex.group(2))
     print('day: ' + regex.group(3))
     
-    payload = {'start_date': date.isoformat(), 'end_date': datePlusOne.isoformat()}
-    data = requests.get(
-        'https://api.track.toggl.com/api/v9/me/time_entries',
-        auth=("xxx", "xxx"),
-        params=payload,
-        headers={'content-type': 'application/json'}
-    )
+    #payload = {'start_date': date.isoformat(), 'end_date': datePlusOne.isoformat()}
+    #data = requests.get(
+    #    'https://api.track.toggl.com/api/v9/me/time_entries',
+    #    auth=("xxx", "xxx"),
+    #    params=payload,
+    #    headers={'content-type': 'application/json'}
+    #)
 
-    toggl = json.loads(data.text)
+    #toggl = json.loads(data.text)
 
-    for entry in toggl:
-        print('new')
-        print(entry['description'])
+    #for entry in toggl:
+    #    print('new')
+    #    print(entry['description'])
 EOF
 
 " Calls the Python 3 function.
