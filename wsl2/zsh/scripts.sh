@@ -31,13 +31,6 @@ ftmuxp() {
 }
 
 jrnl() {
-    template="* JOURNAL - $year/$month/$day
-
-** Worklog
-
-** Notes
-    "
-    
     if [[ ! $1 ]]; then
         year=$(date '+%Y')
         month=$(date '+%m')
@@ -47,6 +40,17 @@ jrnl() {
         month=$(date --date="$1 day" '+%m')
         day=$(date --date="$1 day" '+%d')
     fi
+
+    template="* JOURNAL - $year/$month/$day
+
+** Worklog
+
+DEVBRIMVP-1 = External Meetings
+DEVBRIMVP-2 = Internal Meetings
+DEVBRIMVP-3 = Sprint Work
+
+** Notes
+    "
 
     if [[ ! -d "$HOME/journal/$year/$month" ]]; then
         mkdir -p "$HOME/journal/$year/$month"
