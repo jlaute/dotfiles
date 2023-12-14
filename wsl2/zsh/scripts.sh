@@ -43,11 +43,11 @@ jrnl() {
 
     template="* JOURNAL - $year/$month/$day
 
+DEVMBMVPCH = Megabad MVP CH
+TIME = Internal Stuff
+
 ** Worklog
 
-DEVBRIMVP-1 = External Meetings
-DEVBRIMVP-2 = Internal Meetings
-DEVBRIMVP-3 = Sprint Work
 
 ** Notes
     "

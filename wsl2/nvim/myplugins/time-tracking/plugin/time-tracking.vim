@@ -1,4 +1,4 @@
-echo 'test 12'
+echo 'test 1234'
 
 if exists('g:loaded_time_tracking')
     finish
